@@ -22,19 +22,17 @@ var appRouter = function (app) {
         });
     });
 
-    app.get("/modifiers/:id", function (req, res) {
-
+    app.get("/modifiers/:id", function(req,res) {
+        console.log(req.params.id);
         var productId = req.params.id;
+        api.get('products/'+productId+'/modifiers').then(function(product) {
 
-        api.get("products/"+productId+"/modifiers").then(function(res) {
+            res.status(200).json(product);
 
-            return res.data;
-            
         }).catch((err) => {
             console.log(err)
-        });
-
-    });
+        }); 
+    })
 
 };
 
