@@ -26,8 +26,18 @@ var appRouter = function (app) {
         console.log(req.params.id);
         var productId = req.params.id;
         api.get('products/'+productId+'/modifiers').then(function(product) {
+            api.get('products/'+productId+'/complex-rules').then(function(productRules) {
 
-            res.status(200).json(product);
+                var productData = {
+                    product,
+                    productRules
+                }
+
+                res.status(200).json(productData);
+
+            }).catch((err) => {
+                console.log(err)
+            }); 
 
         }).catch((err) => {
             console.log(err)
