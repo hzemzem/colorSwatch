@@ -42,7 +42,7 @@ var appRouter = function (app) {
         }).catch((err) => {
             console.log(err)
         }); 
-    })
+    });
 
 };
 
