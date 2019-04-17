@@ -25,7 +25,7 @@ var appRouter = function (app) {
     app.get("/modifiers/:id", function(req,res) {
         console.log(req.params.id);
         var productId = req.params.id;
-        api.get('products/'+productId+'/modifiers').then(function(product) {
+        api.get('products/'+productId+'/options').then(function(product) {
             api.get('products/'+productId+'/complex-rules').then(function(productRules) {
 
                 var productData = {
