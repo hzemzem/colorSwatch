@@ -22,26 +22,33 @@ var appRouter = function (app) {
         });
     });
 
-    app.get("/:id", function(req,res) {
+    var highestInventoryIndex = 0;
+    var highestInventory = 0;
+    var highestInventoryImage = '';
+
+    app.get("/:id", function (req, res) {
         console.log(req.params.id);
         var productId = req.params.id;
-        api.get('products/'+productId+'/variants').then(function(productVariants) {
-            api.get('products/'+productId+'/complex-rules').then(function(productRules) {
+        api.get('products/' + productId + '/variants').then(function (productVariants) {
 
-                var productData = {
-                    productVariants,
-                    productRules
+            for (var i = 0; i < productVariants.data.length; i++) {
+                if (productVariants.data[i].inventory_level > highestInventory) {
+                    highestInventory = productVariants.data[i].inventory_level;
+                    highestInventoryIndex = i;
+                    highestInventoryImage = productVariants.data[i].image_url;
                 }
+            }
 
-                res.status(200).json(productData);
+            var productData = {
+                highestImageUrl: highestInventoryImage,
+                productVariants
+            }
 
-            }).catch((err) => {
-                console.log(err)
-            }); 
+            res.status(200).json(productData);
 
         }).catch((err) => {
             console.log(err)
-        }); 
+        });
     });
 
 };
