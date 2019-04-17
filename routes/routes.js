@@ -22,7 +22,7 @@ var appRouter = function (app) {
         });
     });
 
-    app.get("/modifiers/:id", function(req,res) {
+    app.get("/:id", function(req,res) {
         console.log(req.params.id);
         var productId = req.params.id;
         api.get('products/'+productId+'/variants').then(function(productVariants) {
