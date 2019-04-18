@@ -22,19 +22,19 @@ var appRouter = function (app) {
         });
     });
 
-    var highestInventoryIndex = 0;
     var highestInventory = 0;
     var highestInventoryImage = '';
 
     app.get("/:id", function (req, res) {
-        console.log(req.params.id);
+        // console.log(req.params.id);
         var productId = req.params.id;
         api.get('products/' + productId + '/variants').then(function (productVariants) {
+
+            // console.log(productVariants.data.length);
 
             for (var i = 0; i < productVariants.data.length; i++) {
                 if (productVariants.data[i].inventory_level > highestInventory) {
                     highestInventory = productVariants.data[i].inventory_level;
-                    highestInventoryIndex = i;
                     highestInventoryImage = productVariants.data[i].image_url;
                 }
             }
@@ -53,6 +53,9 @@ var appRouter = function (app) {
             
 
             res.status(200).json(productData);
+
+            highestInventory = 0;
+            highestInventoryImage = '';
 
         }).catch((err) => {
             console.log(err)
