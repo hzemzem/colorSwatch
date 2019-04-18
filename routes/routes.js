@@ -44,6 +44,8 @@ var appRouter = function (app) {
                 productVariants
             }
 
+            highestInventoryImage = '';
+
             res.status(200).json(productData);
 
         }).catch((err) => {
