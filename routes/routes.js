@@ -39,10 +39,18 @@ var appRouter = function (app) {
                 }
             }
 
-            var productData = {
-                highestImageUrl: highestInventoryImage,
-                productVariants
+            if (productVariants.data.length > 1) {
+                var productData = {
+                    highestImageUrl: highestInventoryImage,
+                    productVariants
+                }
+            } else {
+                var productData = {
+                    highestImageUrl: '',
+                    productVariants
+                }
             }
+            
 
             res.status(200).json(productData);
 
